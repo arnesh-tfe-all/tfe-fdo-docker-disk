@@ -1,4 +1,12 @@
 terraform {
+  required_version = "1.15.6"
+  cloud {
+    
+    organization = "tfe-org-hashicorp2026"
+    workspaces {
+      name = "fdo-docker-disk"
+    }
+  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"

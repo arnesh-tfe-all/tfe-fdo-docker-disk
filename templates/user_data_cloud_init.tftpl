@@ -79,7 +79,7 @@ write_files:
 
 runcmd:
 # Install Docker
-- curl -fsS https://raw.githubusercontent.com/StamatisChr/scripts/main/docker-install-ubuntu.sh | sudo -E bash
+- curl -fsS https://raw.githubusercontent.com/arnesh-tfe-all/tf-scripts/refs/heads/main/docker-install-ubuntu.sh | sudo -E bash
 # Configure UFW for Docker
 - ufw allow in on docker0
 # Create necessary directories
@@ -104,7 +104,7 @@ runcmd:
 - systemctl enable --now terraform-enterprise
 # Wait TFE to start
 - echo "Waiting for Terraform Enterprise to start..."
-- curl -fsSL https://raw.githubusercontent.com/StamatisChr/scripts/main/wait-for-tfe-to-start.sh -o /tmp/wait-for-tfe-to-start.sh
+- curl -fsSL https://raw.githubusercontent.com/arnesh-tfe-all/tf-scripts/refs/heads/main/wait-for-tfe-to-start.sh -o /tmp/wait-for-tfe-to-start.sh
 - bash /tmp/wait-for-tfe-to-start.sh ${tfe_hostname} ${tfe_version_image}
 # Get admin token
 - CONTAINER_NAME=$(docker ps --filter "ancestor=images.releases.hashicorp.com/hashicorp/terraform-enterprise:${tfe_version_image}" --format "{{.Names}}")
