@@ -8,10 +8,11 @@ resource "random_pet" "hostname_suffix" {
 ##### EC2 instance #####
 # create ec2 instance
 resource "aws_instance" "tfe_docker_instance" {
-  ami                  = data.aws_ami.hc-base-ubuntu-2404["amd64"].id
-  instance_type        = var.tfe_instance_type
-  security_groups      = [aws_security_group.tfe_docker_sg.name]
-  iam_instance_profile = aws_iam_instance_profile.ssm_role.name
+  ami                    = data.aws_ami.hc-base-ubuntu-2404["arm64"].id
+  instance_type          = var.tfe_instance_type
+  subnet_id              = var.aws_subnet_id
+  vpc_security_group_ids = [aws_security_group.tfe_docker_sg.id]
+  iam_instance_profile   = aws_iam_instance_profile.ssm_role.name
 
   user_data = templatefile("./templates/user_data_cloud_init.tftpl", {
     tfe_host_path_to_certificates = var.tfe_host_path_to_certificates
@@ -53,6 +54,7 @@ resource "aws_eip" "tfe_eip" {
 resource "aws_security_group" "tfe_docker_sg" {
   name        = "tfe_docker_sg"
   description = "Allow inbound traffic and outbound traffic for TFE"
+  vpc_id      = var.aws_vpc_id
 
   tags = {
     Name        = "tfe_docker_sg"

@@ -13,7 +13,9 @@ data "aws_ami" "hc-base-ubuntu-2404" {
   owners      = ["888995627335"]
 }
 
-data "aws_vpc" "my-default" {}
+data "aws_vpc" "my-default" {
+  id = "vpc-03d0725276f2d0272"
+}
 
 data "aws_route53_zone" "my_aws_dns_zone" {
   name = var.hosted_zone_name

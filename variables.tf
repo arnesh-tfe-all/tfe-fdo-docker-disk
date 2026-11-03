@@ -101,3 +101,13 @@ variable "oauth_token" {
   description = "OAuth token for GitHub"
   type        = string
 }
+
+variable "aws_vpc_id" {
+  description = "default-vpc-name"
+  type        = string
+}
+
+variable "aws_subnet_id" {
+  description = "Public subnet (route to an internet gateway) in aws_vpc_id for the TFE instance"
+  type        = string
+}
